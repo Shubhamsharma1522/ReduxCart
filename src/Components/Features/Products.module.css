@@ -4,6 +4,35 @@
   overflow: hidden;
 }
 
+.searchContainer {
+  margin: 20px auto; 
+  max-width: 600px;
+  padding: 10px;
+  text-align: center; 
+}
+
+.search {
+  width: 100%; 
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+}
+
+.search:focus {
+  border-color: #007bff; 
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.3); 
+}
+
+.noProducts {
+  text-align: center; 
+  font-size: 18px; 
+  color: #666; 
+  margin: 20px 0; 
+}
+
 /* mobile responsive design */
 @media only screen and (max-width: 768px) {
   .productList {

@@ -38,6 +38,10 @@
   align-items: center;
 }
 
+.clearDisabled {
+  color: red;
+}
+
 .end button,
 .clearButtons button {
   height: 2rem;

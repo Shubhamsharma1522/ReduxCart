@@ -10,62 +10,57 @@ const ProductsList = ({ item }) => {
   const cartQuantity = useSelector((state) => state.cart.products);
 
   const cartItem = cartQuantity.find((cartItem) => cartItem.id === item.id);
-  // console.log(cartItem, "cart item");
 
   const itemQuantity = cartItem ? cartItem.quantity : 0;
-  // console.log("itemQuantity", itemQuantity);
 
   const handleQuantity = (event) => {
     const value = parseInt(event.target.value);
-    // console.log(value, "handle quantity");
     setQuantity(value);
   };
 
   const handleAddToCart = (event) => {
     event.preventDefault();
     dispatch(cartActions.addToCart({ ...item, quantity }));
-    // console.log(item, quantity, "handle add to cart");
     setQuantity(1);
   };
 
-  // Elipsis method
-  const addElipsis = (str, limit) => {
-    return str.length > limit ? str.substring(0, limit) + "..." : str;
+  // Function to truncate title to 5 characters
+  const truncateTitle = (title, limit) => {
+    return title.length > limit ? title.substring(0, limit) + "..." : title;
   };
 
   return (
-    <>
-      <div className={classes.card}>
-        <article className={classes.article}>
-          <div>
-            <img src={item.images[0]} alt={item.title} />
-          </div>
-          <div>
-            <p className={classes.title}>{item.title}</p>
-            <p className={classes.description}>
-              {addElipsis(item.description, 50)}
-            </p>
-            <p className={classes.price}>${item.price}</p>
-          </div>
-          <div className={classes.form}>
-            <form onSubmit={handleAddToCart}>
-              <input
-                type="number"
-                min={1}
-                max={10}
-                value={quantity}
-                onChange={handleQuantity}
-              />
-
-              <button type="submit">Add to cart</button>
-            </form>
-          </div>
-          <p className={classes.itemQuantity}>
-            Added Item Quantity: {itemQuantity}
+    <div className={classes.card}>
+      <article className={classes.article}>
+        <div>
+          <img src={item.images[0]} alt={item.title} />
+        </div>
+        <div>
+          <p className={classes.title}>{truncateTitle(item.title, 20)}</p>
+          <p className={classes.description}>
+            {item.description.length > 50
+              ? item.description.substring(0, 50) + "..."
+              : item.description}
           </p>
-        </article>
-      </div>
-    </>
+          <p className={classes.price}>${item.price}</p>
+        </div>
+        <div className={classes.form}>
+          <form onSubmit={handleAddToCart}>
+            <input
+              type="number"
+              min={1}
+              max={10}
+              value={quantity}
+              onChange={handleQuantity}
+            />
+            <button type="submit">Add to cart</button>
+          </form>
+        </div>
+        <p className={classes.itemQuantity}>
+          Added Item Quantity: {itemQuantity}
+        </p>
+      </article>
+    </div>
   );
 };
 

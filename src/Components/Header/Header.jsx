@@ -10,14 +10,13 @@ const Header = () => {
   const dispatch = useDispatch();
   const totalQuantity = useSelector((state) => state.cart.products);
 
-  // console.log(totalQuantity, "total quantity");
-
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const cartProducts = totalQuantity.reduce(
     (total, item) => total + item.quantity,
     0
   );
+  console.log("🚀 ~ Header ~ cartProducts:", cartProducts);
 
   const handleLogout = () => {
     dispatch(authActions.logout());
@@ -30,9 +29,7 @@ const Header = () => {
   };
 
   const toggleCartHandler = () => {
-    {
-      isAuthenticated && navigate("/cart");
-    }
+    isAuthenticated && navigate("/cart");
   };
 
   const handleTitleClick = () => {
@@ -52,7 +49,6 @@ const Header = () => {
 
         {isAuthenticated && (
           <button onClick={toggleCartHandler}>
-            {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -66,6 +62,7 @@ const Header = () => {
             {cartProducts}
           </button>
         )}
+
       </div>
       {isAuthenticated && <div style={{ fontSize: "15px" }}>{user.email}</div>}
       {!isAuthenticated ? (
@@ -79,7 +76,14 @@ const Header = () => {
         </div>
       ) : (
         <div className={classes.clearButtons}>
-          <button onClick={handleClearCart} className={classes.clear}>
+          <button
+            onClick={handleClearCart}
+            className={
+              cartProducts === 0 ? classes.disabledClear : classes.clear
+            }
+            style={{ color: cartProducts === 0 ? "gray" : "white" }}
+            disabled={cartProducts === 0}
+          >
             Clear
           </button>
           <button onClick={handleLogout}>Logout</button>

@@ -13,13 +13,16 @@ const Cart = () => {
 
   const totalCartPrice = cartItems.reduce((total, item) => {
     const totalPriceForItem = item.price * item.quantity;
-    console.log(`Adding ${totalPriceForItem} for item: ${item.title}`);
+    console.log(
+      `Adding ${totalPriceForItem.toFixed(2)} for item: ${item.title}`
+    );
     return total + totalPriceForItem;
   }, 0);
 
- 
+  // Format the final total price to two decimal places
+  const formattedTotalCartPrice = totalCartPrice.toFixed(2);
 
-  // console.log("Total cart price:", totalCartPrice);
+  console.log(`Total cart price: ${formattedTotalCartPrice}`);
 
   const handlePlaceOrder = () => {
     dispatch(cartActions.clearCart());
@@ -50,7 +53,7 @@ const Cart = () => {
           </div>
           {cartItems.length > 0 && (
             <div className={classes.cartEnd}>
-              <p>Cart Price : ${totalCartPrice}</p>
+              <p>Cart Price : ${formattedTotalCartPrice}</p>
               <button className={classes.placeOrder} onClick={handlePlaceOrder}>
                 Place Order
               </button>

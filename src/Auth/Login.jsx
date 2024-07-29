@@ -13,7 +13,7 @@ const Login = () => {
     email: "",
     password: "",
     error: "",
-    passwordStrength: "",
+    // passwordStrength: "",
   });
 
   const { email, password, error, passwordStrength } = formData;
@@ -31,19 +31,21 @@ const Login = () => {
       return;
     }
 
-    if (password.length < 8) {
-      setFormData({
-        ...formData,
-        error: "Password must be at least 8 characters long.",
-      });
-      return;
-    }
-
+    // if (password.length < 8) {
+    //   setFormData({
+    //     ...formData,
+    //     error: "Password must be at least 8 characters long.",
+    //   });
+    //   return;
+    // }
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
       dispatch(authActions.login({ email }));
       console.log(response.data);
@@ -105,13 +107,13 @@ const Login = () => {
             className={classes.password}
           />
         </div>
-        {error && (
-          <div style={{ color: "red", marginBottom: "10px" }}>{error}</div>
-        )}
-        {passwordStrength && (
-          <div style={{ marginBottom: "10px" }}>
-            Password Strength: {passwordStrength}
+        {/* {error && (
+          <div style={{ color: "red", marginBottom: "10px" }}>
+            {error.response ? error.response.data.message : error.message}
           </div>
+        )} */}
+        {error && (
+          <div style={{ marginBottom: "10px", color: "red" }}>{error}</div>
         )}
         <div style={{ marginBottom: "20px" }}></div>
         <button type="submit" className={classes.button}>
