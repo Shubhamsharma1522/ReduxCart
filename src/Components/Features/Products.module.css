@@ -1,0 +1,13 @@
+.productList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  overflow: hidden;
+}
+
+/* mobile responsive design */
+@media only screen and (max-width: 768px) {
+  .productList {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1px;
+  }
+}
